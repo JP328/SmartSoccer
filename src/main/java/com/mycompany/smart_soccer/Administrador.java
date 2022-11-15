@@ -6,25 +6,25 @@ package com.mycompany.smart_soccer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author joaop
  */
-public class Administrador {
-    
+public class Administrador extends Usuario {
+   
 //    public void main (String[] args){
 //        cadastrarTime("Alemanha", "Grupo A", "Fase de Grupos");
 //    }
     
-    public void cadastrarTime(String name, String group, String classificacao){
-        
+    public void cadastrarTime(String name, String group, String classificacao){        
+        String sqlComand = "INSERT INTO tb_time (nome, grupo, classificacao) VALUES(?,?,?);";
+
         try{
-            String sqlComand = "INSERT INTO tb_time (nome, grupo, classificacao) VALUES(?,?,?);";
-
-            ConnectionFactory connectFac = new ConnectionFactory();
-            Connection connect = connectFac.obtemConexao();
-
+            Connection connect = new ConnectionFactory().obtemConexao();
+//            ConnectionFactory connectFac = new ConnectionFactory();
             PreparedStatement ps = connect.prepareStatement(sqlComand);
 
             ps.setString(1, name);
@@ -38,4 +38,5 @@ public class Administrador {
             e.printStackTrace();
         }
     }
+    
 }
