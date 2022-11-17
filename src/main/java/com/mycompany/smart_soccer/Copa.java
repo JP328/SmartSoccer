@@ -1,17 +1,22 @@
 package com.mycompany.smart_soccer;
 
+import javax.swing.JOptionPane;
+
 public class Copa {
 
-  /**
-   *
-   */
-  Jogo jogo = new Jogo();
+    public static void main(String[] args) {
+        String time1 = "Flamengo";
+        String time2 = "Vasco";
+        Jogo jogo = new Jogo();
 
-  public void SimularPartida() {
-    String time1 = "Flamengo";
-    String time2 = "Vasco";
+        String resultado = jogo.simularJogo(time1, time2);
 
-    Jogo.simularJogo(time1, time2);
-
-  }
+        JOptionPane.showMessageDialog(null, resultado);
+    }
+//    public void SimularPartida() {
+//        String time1 = "Flamengo";
+//        String time2 = "Vasco";
+//
+//        Jogo.simularJogo(time1, time2);
+//    }
 }

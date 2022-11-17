@@ -1,16 +1,22 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.mycompany.smart_soccer;
 
-import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-//import javax.swing.JOptionPane;
-/* @author joaop */
-public class Usuario {
+/**
+ *
+ * @author joaop
+ */
+public class Time {
     private ArrayList<String> listaDeTimes = new ArrayList<>();
-    
+
     public void listarTimes(){
          listaDeTimes.clear();
          //1: Definir o comando SQL
@@ -25,7 +31,7 @@ public class Usuario {
             ResultSet rs = ps.executeQuery();
             //5: itera sobre o resultado
             while (rs.next()){
-//                int codigo = rs.getInt("cod_time");
+                //int codigo = rs.getInt("cod_time");
                 String nome = rs.getString("nome");
                 String classificacao = rs.getString("classificacao");
                 String grupo = rs.getString("nome_grupo");
@@ -47,6 +53,24 @@ public class Usuario {
             catch (Exception e){
             e.printStackTrace();
         } 
-    }    
-   
+    } 
+    
+    public void cadastrarTime(String name, String classificacao, String group){        
+        String sqlComand = "INSERT INTO tb_time (nome, classificacao, id_grupo) VALUES(?,?,?);";
+
+        try{
+            Connection connect = new ConnectionFactory().obtemConexao();
+            PreparedStatement ps = connect.prepareStatement(sqlComand);
+
+            ps.setString(1, name);
+            ps.setString(2, classificacao);
+            ps.setString(3, group);
+
+            ps.execute();
+            ps.close();
+            connect.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

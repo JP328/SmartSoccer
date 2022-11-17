@@ -215,7 +215,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Antes de come&#xe7;armos, sscolha seu usu&#xe1;rio: "/>
+            <Property name="text" type="java.lang.String" value="Antes de come&#xe7;armos, escolha seu usu&#xe1;rio: "/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel3">

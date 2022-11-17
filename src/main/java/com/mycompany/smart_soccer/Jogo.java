@@ -3,8 +3,8 @@ package com.mycompany.smart_soccer;
 import java.util.Random;
 
 public class Jogo {
-
-  public static String simularJogo(String time1, String time2) {
+   
+  public String simularJogo(String time1, String time2) {
 
     Random rd = new Random();
 
