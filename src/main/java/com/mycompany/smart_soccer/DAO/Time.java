@@ -1,5 +1,6 @@
 package com.mycompany.smart_soccer.DAO;
 
+import com.mysql.cj.util.StringUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ public class Time {
          //1: Definir o comando SQL
         //2: Abrir uma conexão
         try (Connection c = new ConnectionFactory().obtemConexao()){
-            String sql = "SELECT t.cod_time, t.nome, t.classificacao, g.nome_grupo FROM tb_time t, "
+            String sql = "SELECT t.cod_time, t.nome, g.nome_grupo FROM tb_time t, "
                     + "tb_grupo g WHERE t.id_grupo = g.cod_grupo;";
             //3: Pré compila o comando
             PreparedStatement ps = c.prepareStatement(sql);
@@ -24,19 +25,17 @@ public class Time {
             ResultSet rs = ps.executeQuery();
             //5: itera sobre o resultado
             while (rs.next()){
-                //int timesCadastrados = rs.getInt("total_times");
                 String nome = rs.getString("nome");
-                String classificacao = rs.getString("classificacao");
                 String grupo = rs.getString("nome_grupo");
+                String grupoFormatado = grupo.substring(0,1).toUpperCase().concat(grupo.substring(1));
                 String aux = String.format(
-                    "Nome: %s, Grupo: %s, Classificação: %s",
-                    nome,
-                    grupo,
-                    classificacao
+                    "%s       Time: %s",                
+                    grupoFormatado,
+                    nome
                 );
                 listaDeTimes.add(aux);
-                return listaDeTimes;
             }
+            return listaDeTimes;           
         }
             catch (Exception e){
             e.printStackTrace();

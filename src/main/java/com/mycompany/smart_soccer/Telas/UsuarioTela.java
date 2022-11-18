@@ -158,9 +158,9 @@ public class UsuarioTela extends javax.swing.JFrame {
         // TODO add your handling code here:
         Time t = new Time();
         ArrayList<String> lista = t.listarTimes();
-        String message = "Lista de Grupos:\n";
-        for (String grupo : lista) {
-            message += grupo + "\n";
+        String message = "Lista de Times:\n";
+        for (String time : lista) {
+            message += time + "\n";
         }
         JOptionPane.showMessageDialog (null, message);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -168,7 +168,12 @@ public class UsuarioTela extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         Grupo g = new Grupo();
-        g.listarGrupos();
+        ArrayList<String> lista = g.listarGrupos();
+        String message = "Lista de Grupos:\n";
+        for (String grupo : lista) {
+            message += grupo + "\n";
+        }
+        JOptionPane.showMessageDialog (null, message);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     public static void main(String args[]) {
