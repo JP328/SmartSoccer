@@ -1,21 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.smart_soccer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-/**
- *
- * @author joaop
- */
 public class Grupo {
     private ArrayList<String> listaDeGrupos = new ArrayList<>();
 
     public void listarGrupos() {
+        
     }  
 
     public void cadastrarGrupo(String name){        
