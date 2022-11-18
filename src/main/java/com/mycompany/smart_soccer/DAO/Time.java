@@ -4,19 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 
 public class Time {
-    private ArrayList<String> listaDeTimes = new ArrayList<>();
 
-    public void listarTimes(){
-         listaDeTimes.clear();
+    public ArrayList listarTimes(){
+    ArrayList<String> listaDeTimes = new ArrayList<>();
+    
+    //listaDeTimes.clear();
          //1: Definir o comando SQL
         //2: Abrir uma conexão
         try (Connection c = new ConnectionFactory().obtemConexao()){
-            String sql = "SELECT t.cod_time, t.nome, t.classificacao, g.nome_grupo "
-                    + "FROM tb_time t INNER JOIN tb_grupo g ON t.id_grupo = g.cod_grupo;";
+            String sql = "SELECT t.cod_time, t.nome, t.classificacao, g.nome_grupo FROM tb_time t, "
+                    + "tb_grupo g WHERE t.id_grupo = g.cod_grupo;";
             //3: Pré compila o comando
             PreparedStatement ps = c.prepareStatement(sql);
             //4: Executa o comando e guarda
@@ -24,7 +24,7 @@ public class Time {
             ResultSet rs = ps.executeQuery();
             //5: itera sobre o resultado
             while (rs.next()){
-                //int codigo = rs.getInt("cod_time");
+                //int timesCadastrados = rs.getInt("total_times");
                 String nome = rs.getString("nome");
                 String classificacao = rs.getString("classificacao");
                 String grupo = rs.getString("nome_grupo");
@@ -35,17 +35,14 @@ public class Time {
                     classificacao
                 );
                 listaDeTimes.add(aux);
+                return listaDeTimes;
             }
-            String message = "Lista de Grupos:\n";
-            for (String grupo : listaDeTimes) {
-                message += grupo + "\n";
-            }
-            JOptionPane.showMessageDialog (null, message);
-
         }
             catch (Exception e){
             e.printStackTrace();
         } 
+        
+        return null;
     } 
     
     public void cadastrarTime(String name, String classificacao, String group){        
@@ -66,4 +63,5 @@ public class Time {
             e.printStackTrace();
         }
     }
+    
 }
