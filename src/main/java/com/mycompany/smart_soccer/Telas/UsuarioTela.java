@@ -9,6 +9,7 @@ public class UsuarioTela extends javax.swing.JFrame {
     
     public UsuarioTela() {
         initComponents();
+        this.setLocationRelativeTo(null);        
     }
 
     @SuppressWarnings("unchecked")

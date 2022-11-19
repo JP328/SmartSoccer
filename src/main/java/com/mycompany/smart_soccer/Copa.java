@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class Copa {
   // ArrayList<String> listaDeTimes = new ArrayList<>();
   // Um array de arrays é bacicamente uma lista de listas
-  // Exemplo: [[time, grupo
+  // Exemplo: [[time, grupo], [time, grupo], [time, grupo]]
   Time t = new Time();
   ArrayList<ArrayList> listaDeTimes = t.mostrarTimes("Array");
 
