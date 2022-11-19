@@ -59,7 +59,6 @@ public class AdministradorTela extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(222, 222, 222));
         jLabel1.setText("Administrador");
 
         jButton1.setBackground(new java.awt.Color(43, 168, 253));
@@ -81,15 +80,12 @@ public class AdministradorTela extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(222, 222, 222));
         jLabel2.setText("Simular Copa do Mundo");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(222, 222, 222));
         jLabel3.setText("Cadastrar novo Time");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(222, 222, 222));
         jLabel5.setText("Cadastrar novo Grupo");
 
         jButton4.setBackground(new java.awt.Color(43, 168, 253));
@@ -101,7 +97,6 @@ public class AdministradorTela extends javax.swing.JFrame {
         jButton5.setText("Cadastrar");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(222, 222, 222));
         jLabel4.setText("Cadastrar Automático");
         jLabel4.setToolTipText("");
 
@@ -152,7 +147,7 @@ public class AdministradorTela extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(520, 520, 520))
+                .addGap(544, 544, 544))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2)
@@ -202,6 +197,8 @@ public class AdministradorTela extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        CadastrarTime cadastrarTime = new CadastrarTime();
+        cadastrarTime.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
