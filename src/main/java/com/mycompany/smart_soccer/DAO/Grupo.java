@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class Grupo {
 
     public ArrayList listarGrupos() {
-    ArrayList<String> listaDeGrupos = new ArrayList<>();
+        ArrayList<String> listaDeGrupos = new ArrayList<>();
     
-    //listaDeTimes.clear();
-         //1: Definir o comando SQL
+        //listaDeTimes.clear();
+        //1: Definir o comando SQL
         //2: Abrir uma conexão
         try (Connection c = new ConnectionFactory().obtemConexao()){
             String sql = "SELECT * FROM tb_grupo;";

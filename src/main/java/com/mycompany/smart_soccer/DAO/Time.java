@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 public class Time {
 
-    public ArrayList listarTimes(){
-    ArrayList<String> listaDeTimes = new ArrayList<>();
+    public ArrayList mostrarTimes(String retornoLista){
+        ArrayList<String> listaDeTimesString = new ArrayList<>();
+        ArrayList<ArrayList> listaDeTimesArray = new ArrayList<>();
     
-    //listaDeTimes.clear();
-         //1: Definir o comando SQL
+        //listaDeTimes.clear();
+        //1: Definir o comando SQL
         //2: Abrir uma conexão
         try (Connection c = new ConnectionFactory().obtemConexao()){
             String sql = "SELECT t.cod_time, t.nome, g.nome_grupo FROM tb_time t, "
@@ -24,18 +25,33 @@ public class Time {
             //o resultado em um ResultSet
             ResultSet rs = ps.executeQuery();
             //5: itera sobre o resultado
-            while (rs.next()){
-                String nome = rs.getString("nome");
-                String grupo = rs.getString("nome_grupo");
-                String grupoFormatado = grupo.substring(0,1).toUpperCase().concat(grupo.substring(1));
-                String aux = String.format(
-                    "%s       Time: %s",                
-                    grupoFormatado,
-                    nome
-                );
-                listaDeTimes.add(aux);
+            if ("String".equals(retornoLista)){
+                while (rs.next()){
+                    String nome = rs.getString("nome");
+                    String grupo = rs.getString("nome_grupo");
+                    String grupoFormatado = grupo.substring(0,1).toUpperCase().concat(grupo.substring(1));
+                    String aux = String.format(
+                        "%s       Time: %s",                
+                        grupoFormatado,
+                        nome
+                    );
+                    listaDeTimesString.add(aux);
+                }
+                return listaDeTimesString;
+            } else if ("Array".equals(retornoLista)) {
+                while (rs.next()){
+                    ArrayList<String> atributosTime = new ArrayList<>();
+                    int codigoTime = rs.getInt("cod_time");
+                    String nome = rs.getString("nome");
+                    String grupo = rs.getString("nome_grupo");
+                    
+                    atributosTime.add(Integer.toString(codigoTime));
+                    atributosTime.add(nome);
+                    atributosTime.add(grupo);
+                    listaDeTimesArray.add(atributosTime);
+                }
+                return listaDeTimesArray;            
             }
-            return listaDeTimes;           
         }
             catch (Exception e){
             e.printStackTrace();

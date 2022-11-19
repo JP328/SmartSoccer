@@ -1,12 +1,17 @@
 package com.mycompany.smart_soccer;
 
+import com.mycompany.smart_soccer.DAO.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
 public class Copa {
-  ArrayList<String> listaDeTimes = new ArrayList<>();
+  //  ArrayList<String> listaDeTimes = new ArrayList<>();
+  // Um array de arrays é bacicamente uma lista de listas
+  // Exemplo: [[time, grupo
+  Time t = new Time();
+  ArrayList<ArrayList> listaDeTimes = t.mostrarTimes("Array");
 
   public static void SimularCopa(String[] args) {
     // As Strings simulam os objetos times com todas as informações do time e do seu
