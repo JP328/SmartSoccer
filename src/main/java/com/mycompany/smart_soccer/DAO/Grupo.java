@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Grupo {
 
@@ -57,5 +58,31 @@ public class Grupo {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public boolean VerificarGrupos(){
+        String sqlComand = "SELECT count(cod_grupo) AS total_grupos FROM tb_grupo;";
+
+
+        try{
+            Connection connect = new ConnectionFactory().obtemConexao();
+            PreparedStatement ps = connect.prepareStatement(sqlComand);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int quantidade = rs.getInt("total_grupos");
+            if(quantidade>=8){
+                JOptionPane.showMessageDialog(null, "Total máximo de grupos atingido!");
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+
+
     }
 }

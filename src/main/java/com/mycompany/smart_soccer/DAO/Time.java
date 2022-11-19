@@ -1,10 +1,10 @@
 package com.mycompany.smart_soccer.DAO;
 
-import com.mysql.cj.util.StringUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 public class Time {
@@ -79,4 +79,27 @@ public class Time {
         }
     }
     
+    public boolean verificarTime(){
+        String sqlComand = "SELECT count(cod_time) AS total_times FROM tb_time";
+
+        try{
+            Connection connect = new ConnectionFactory().obtemConexao();
+            PreparedStatement ps = connect.prepareCall(sqlComand);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+
+            int quantidadeTime = rs.getInt("total_times");
+            if(quantidadeTime>=32){
+                JOptionPane.showMessageDialog(null,"Total máximo de times atingido!");
+                return false;
+            }else{
+                return  true;
+            }                
+
+        }catch(Exception e){
+           e.printStackTrace();
+        }
+    
+        return false;
+    }
 }
