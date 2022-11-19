@@ -82,7 +82,33 @@ public class Grupo {
             e.printStackTrace();
         }
         return false;
-
-
     }
+    
+    public boolean VerTimeGrupo (){
+    
+        String sqlComand = "SELECT id_grupo, count(cod_time) AS total_no_grupo FROM tb_time WHERE id_grupo = ? group by id_grupo;";
+        
+        try{
+        
+            Connection connect = new ConnectionFactory().obtemConexao();
+            PreparedStatement ps = connect.prepareCall(sqlComand);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            
+            int qntTime = rs.getInt("total_no_grupo");
+            if(qntTime == 4){
+                return false; 
+            }else{
+                return true;
+            }
+          
+            
+        }
+        catch(Exception e){
+         e.printStackTrace();
+        }
+        return false;
+        
+    };
+    
 }
