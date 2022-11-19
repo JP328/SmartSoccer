@@ -30,7 +30,6 @@ public class CadastrarTime extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(222, 222, 222));
         jTextField1.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Nome do Time");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -40,7 +39,6 @@ public class CadastrarTime extends javax.swing.JFrame {
         jTextField2.setBackground(new java.awt.Color(222, 222, 222));
         jTextField2.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("Código do Grupo");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -48,6 +46,7 @@ public class CadastrarTime extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(222, 222, 222));
         jLabel1.setText("Cadastro de um novo Time");
 
         jPanel2.setBackground(new java.awt.Color(248, 195, 1));
@@ -81,16 +80,21 @@ public class CadastrarTime extends javax.swing.JFrame {
         jButton1.setText("Enviar");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(222, 222, 222));
         jLabel2.setText("Coloque o Nome do Time");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(222, 222, 222));
         jLabel3.setText("Coloque o Código Escolhido");
 
+        jTextArea1.setBackground(new java.awt.Color(15, 51, 190));
         jTextArea1.setColumns(20);
+        jTextArea1.setForeground(new java.awt.Color(222, 222, 222));
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(222, 222, 222));
         jLabel4.setText("Lista de Times Escolhidos");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
