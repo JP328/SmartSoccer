@@ -11,9 +11,6 @@ public class Grupo {
     public ArrayList listarGrupos() {
         ArrayList<String> listaDeGrupos = new ArrayList<>();
     
-        //listaDeTimes.clear();
-        //1: Definir o comando SQL
-        //2: Abrir uma conexão
         try (Connection c = new ConnectionFactory().obtemConexao()){
             String sql = "SELECT * FROM tb_grupo;";
             //3: Pré compila o comando
@@ -33,6 +30,7 @@ public class Grupo {
                 );
                 listaDeGrupos.add(aux);
             }
+            ps.close();
             return listaDeGrupos;           
         }
             catch (Exception e){
@@ -63,13 +61,14 @@ public class Grupo {
     public boolean VerificarGrupos(){
         String sqlComand = "SELECT count(cod_grupo) AS total_grupos FROM tb_grupo;";
 
-
         try{
             Connection connect = new ConnectionFactory().obtemConexao();
             PreparedStatement ps = connect.prepareStatement(sqlComand);
             ResultSet rs = ps.executeQuery();
             rs.next();
             int quantidade = rs.getInt("total_grupos");
+            ps.close();
+            
             if(quantidade>=8){
                 JOptionPane.showMessageDialog(null, "Total máximo de grupos atingido!");
                 return false;
@@ -84,18 +83,18 @@ public class Grupo {
         return false;
     }
     
-    public boolean VerTimeGrupo (){
+    public boolean VerificarTimeGrupo (){
     
         String sqlComand = "SELECT id_grupo, count(cod_time) AS total_no_grupo FROM tb_time WHERE id_grupo = ? group by id_grupo;";
         
         try{
-        
             Connection connect = new ConnectionFactory().obtemConexao();
             PreparedStatement ps = connect.prepareCall(sqlComand);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            
             int qntTime = rs.getInt("total_no_grupo");
+            ps.close();
+            
             if(qntTime == 4){
                 return false; 
             }else{
@@ -109,6 +108,6 @@ public class Grupo {
         }
         return false;
         
-    };
+    }
     
 }

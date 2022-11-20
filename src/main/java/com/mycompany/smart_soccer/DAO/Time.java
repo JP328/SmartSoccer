@@ -13,18 +13,13 @@ public class Time {
         ArrayList<String> listaDeTimesString = new ArrayList<>();
         ArrayList<ArrayList> listaDeTimesArray = new ArrayList<>();
     
-        //listaDeTimes.clear();
-        //1: Definir o comando SQL
-        //2: Abrir uma conexão
         try (Connection c = new ConnectionFactory().obtemConexao()){
             String sql = "SELECT t.cod_time, t.nome, g.nome_grupo FROM tb_time t, "
                     + "tb_grupo g WHERE t.id_grupo = g.cod_grupo;";
-            //3: Pré compila o comando
+
             PreparedStatement ps = c.prepareStatement(sql);
-            //4: Executa o comando e guarda
-            //o resultado em um ResultSet
             ResultSet rs = ps.executeQuery();
-            //5: itera sobre o resultado
+            
             if ("String".equals(retornoLista)){
                 while (rs.next()){
                     String nome = rs.getString("nome");
@@ -52,6 +47,7 @@ public class Time {
                 }
                 return listaDeTimesArray;            
             }
+            ps.close();
         }
             catch (Exception e){
             e.printStackTrace();
@@ -78,7 +74,7 @@ public class Time {
             e.printStackTrace();
         }
     }
-    
+      
     public boolean verificarTime(){
         String sqlComand = "SELECT count(cod_time) AS total_times FROM tb_time";
 
@@ -87,14 +83,16 @@ public class Time {
             PreparedStatement ps = connect.prepareCall(sqlComand);
             ResultSet rs = ps.executeQuery();
             rs.next();
-
             int quantidadeTime = rs.getInt("total_times");
-            if(quantidadeTime>=32){
+            ps.close();
+            
+            if(quantidadeTime >= 32){
                 JOptionPane.showMessageDialog(null,"Total máximo de times atingido!");
                 return false;
             }else{
                 return  true;
-            }                
+            }
+            
 
         }catch(Exception e){
            e.printStackTrace();
