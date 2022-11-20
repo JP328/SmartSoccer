@@ -8,44 +8,56 @@ import javax.swing.JOptionPane;
 
 
 public class Time {
-    private ArrayList<String> listaDeTimes = new ArrayList<>();
 
-    public void listarTimes(){
-         listaDeTimes.clear();
-         //1: Definir o comando SQL
+    public ArrayList mostrarTimes(String retornoLista){
+        ArrayList<String> listaDeTimesString = new ArrayList<>();
+        ArrayList<ArrayList> listaDeTimesArray = new ArrayList<>();
+    
+        //listaDeTimes.clear();
+        //1: Definir o comando SQL
         //2: Abrir uma conexão
         try (Connection c = new ConnectionFactory().obtemConexao()){
-            String sql = "SELECT t.cod_time, t.nome, t.classificacao, g.nome_grupo "
-                    + "FROM tb_time t INNER JOIN tb_grupo g ON t.id_grupo = g.cod_grupo;";
+            String sql = "SELECT t.cod_time, t.nome, g.nome_grupo FROM tb_time t, "
+                    + "tb_grupo g WHERE t.id_grupo = g.cod_grupo;";
             //3: Pré compila o comando
             PreparedStatement ps = c.prepareStatement(sql);
             //4: Executa o comando e guarda
             //o resultado em um ResultSet
             ResultSet rs = ps.executeQuery();
             //5: itera sobre o resultado
-            while (rs.next()){
-                //int codigo = rs.getInt("cod_time");
-                String nome = rs.getString("nome");
-                String classificacao = rs.getString("classificacao");
-                String grupo = rs.getString("nome_grupo");
-                String aux = String.format(
-                    "Nome: %s, Grupo: %s, Classificação: %s",
-                    nome,
-                    grupo,
-                    classificacao
-                );
-                listaDeTimes.add(aux);
+            if ("String".equals(retornoLista)){
+                while (rs.next()){
+                    String nome = rs.getString("nome");
+                    String grupo = rs.getString("nome_grupo");
+                    String grupoFormatado = grupo.substring(0,1).toUpperCase().concat(grupo.substring(1));
+                    String aux = String.format(
+                        "%s       Time: %s",                
+                        grupoFormatado,
+                        nome
+                    );
+                    listaDeTimesString.add(aux);
+                }
+                return listaDeTimesString;
+            } else if ("Array".equals(retornoLista)) {
+                while (rs.next()){
+                    ArrayList<String> atributosTime = new ArrayList<>();
+                    int codigoTime = rs.getInt("cod_time");
+                    String nome = rs.getString("nome");
+                    String grupo = rs.getString("nome_grupo");
+                    
+                    atributosTime.add(Integer.toString(codigoTime));
+                    atributosTime.add(nome);
+                    atributosTime.add(grupo);
+                    listaDeTimesArray.add(atributosTime);
+                }
+                return listaDeTimesArray;            
             }
-            String message = "Lista de Grupos:\n";
-            for (String grupo : listaDeTimes) {
-                message += grupo + "\n";
-            }
-            JOptionPane.showMessageDialog (null, message);
-
         }
             catch (Exception e){
             e.printStackTrace();
         } 
+        
+        return null;
     } 
     
     public void cadastrarTime(String name, String classificacao, String group){        
@@ -65,5 +77,29 @@ public class Time {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    
+    public boolean verificarTime(){
+        String sqlComand = "SELECT count(cod_time) AS total_times FROM tb_time";
+
+        try{
+            Connection connect = new ConnectionFactory().obtemConexao();
+            PreparedStatement ps = connect.prepareCall(sqlComand);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+
+            int quantidadeTime = rs.getInt("total_times");
+            if(quantidadeTime>=32){
+                JOptionPane.showMessageDialog(null,"Total máximo de times atingido!");
+                return false;
+            }else{
+                return  true;
+            }                
+
+        }catch(Exception e){
+           e.printStackTrace();
+        }
+    
+        return false;
     }
 }
