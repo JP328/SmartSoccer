@@ -1,5 +1,7 @@
 package com.mycompany.smart_soccer.Telas;
 
+import com.mycompany.smart_soccer.DAO.CadastroAutomatico;
+
 public class AdministradorTela extends javax.swing.JFrame {
 
     public AdministradorTela() {
@@ -11,6 +13,7 @@ public class AdministradorTela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -60,7 +63,6 @@ public class AdministradorTela extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Administrador");
 
         jButton1.setBackground(new java.awt.Color(43, 168, 253));
@@ -83,15 +85,12 @@ public class AdministradorTela extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Simular Copa do Mundo");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Cadastrar novo Time");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Cadastrar novo Grupo");
 
         jButton4.setBackground(new java.awt.Color(43, 168, 253));
@@ -107,9 +106,13 @@ public class AdministradorTela extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(43, 168, 253));
         jButton5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton5.setText("Cadastrar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Cadastrar Automático");
         jLabel4.setToolTipText("");
 
@@ -238,6 +241,13 @@ public class AdministradorTela extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // Importar cadastro automático
+        //Chamar grupo e chamar time
+        CadastroAutomatico automatico = new CadastroAutomatico();
+        automatico.cadastroTimeAutomatico();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -271,6 +281,7 @@ public class AdministradorTela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
