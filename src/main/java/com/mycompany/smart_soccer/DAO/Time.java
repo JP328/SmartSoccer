@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-
 
 public class Time {
 
@@ -99,4 +97,38 @@ public class Time {
     
         return false;
     }
+    
+      public boolean verificarTimeGrupo (String codigo_grupo){
+    
+        String sqlComand = "SELECT id_grupo, count(cod_time) AS total_no_grupo FROM "
+                + "tb_time WHERE id_grupo = ? group by id_grupo;";
+        
+        try{
+            Connection connect = new ConnectionFactory().obtemConexao();
+            PreparedStatement ps = connect.prepareCall(sqlComand);
+            ps.setString(1, codigo_grupo);
+            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int qntTime = rs.getInt("total_no_grupo");
+                ps.close();
+
+                if(qntTime >= 4){
+                    System.out.println("False");
+                    return false; 
+                }else{
+                    System.out.println("True");
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+        catch(Exception e){
+         e.printStackTrace();
+        }
+        return false;
+        
+    }
+   
 }

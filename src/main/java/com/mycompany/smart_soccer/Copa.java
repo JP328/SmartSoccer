@@ -85,37 +85,37 @@ public class Copa {
     return vencedoresFaseDeGrupo;
   }
 
-  public ArrayList<String>  OitavasDeFinal("VencedoresGrupo1","VencedoresGrupo2") {
-
-    Jogo jogo = new Jogo();
-    ArrayList<String> vencedoresOitavasDeFinal = new ArrayList<>();
-
-    vencedoresOitavasDeFinal.add(jogo.simularJogo(VencedoresGrupo1.get(0), VencedoresGrupo2.get(1)));
-    vencedoresOitavasDeFinal.add(jogo.simularJogo(VencedoresGrupo1.get(1), VencedoresGrupo2.get(0)));
-
-    return vencedoresOitavasDeFinal;
-  }
-
-  public ArrayList<String> QuartasDeFinal("VencedoresOitavas1","VencedoresOitavas2") {
-
-    Jogo jogo = new Jogo();
-    ArrayList<String> VencedoresQuartasDeFinal = new ArrayList<>();
-
-    VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresOitavas1.get(0), VencedoresOitavas2.get(1)));
-    VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresOitavas1.get(1), VencedoresOitavas2.get(0)));
-
-    return VencedoresQuartasDeFinal;
-  }
-
-  public ArrayList<String> SemiFinal("VencedoresQuartas1","VencedoresQuartas2") {
-    Jogo jogo = new Jogo();
-    ArrayList<String> VencedoresSemiFinal = new ArrayList<>();
-
-    VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresQuartas1.get(0), VencedoresQuartas2.get(1)));
-    VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresQuartas1.get(1), VencedoresQuartas2.get(0)));
-
-    return VencedoresSemiFinal;
-  }
+//  public ArrayList<String>  OitavasDeFinal("VencedoresGrupo1","VencedoresGrupo2") {
+//
+//    Jogo jogo = new Jogo();
+//    ArrayList<String> vencedoresOitavasDeFinal = new ArrayList<>();
+//
+//    vencedoresOitavasDeFinal.add(jogo.simularJogo(VencedoresGrupo1.get(0), VencedoresGrupo2.get(1)));
+//    vencedoresOitavasDeFinal.add(jogo.simularJogo(VencedoresGrupo1.get(1), VencedoresGrupo2.get(0)));
+//
+//    return vencedoresOitavasDeFinal;
+//  }
+//
+//  public ArrayList<String> QuartasDeFinal("VencedoresOitavas1","VencedoresOitavas2") {
+//
+//    Jogo jogo = new Jogo();
+//    ArrayList<String> VencedoresQuartasDeFinal = new ArrayList<>();
+//
+//    VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresOitavas1.get(0), VencedoresOitavas2.get(1)));
+//    VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresOitavas1.get(1), VencedoresOitavas2.get(0)));
+//
+//    return VencedoresQuartasDeFinal;
+//  }
+//
+//  public ArrayList<String> SemiFinal("VencedoresQuartas1","VencedoresQuartas2") {
+//    Jogo jogo = new Jogo();
+//    ArrayList<String> VencedoresSemiFinal = new ArrayList<>();
+//
+//    VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresQuartas1.get(0), VencedoresQuartas2.get(1)));
+//    VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresQuartas1.get(1), VencedoresQuartas2.get(0)));
+//
+//    return VencedoresSemiFinal;
+//  }
   
 
   // Na fase de grupos, cada seleção joga três vezes, e a melhor passa de fase

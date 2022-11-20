@@ -11,7 +11,7 @@ public class Grupo {
         ArrayList<String> listaDeGrupos = new ArrayList<>();
     
         try (Connection c = new ConnectionFactory().obtemConexao()){
-            String sql = "SELECT * FROM tb_grupo ORDER BY g.nome_grupo;";
+            String sql = "SELECT * FROM tb_grupo ORDER BY nome_grupo;";
             //3: Pré compila o comando
             PreparedStatement ps = c.prepareStatement(sql);
             //4: Executa o comando e guarda
@@ -57,7 +57,7 @@ public class Grupo {
         }
     }
 
-    public boolean VerificarGrupos(){
+    public boolean verificarGrupos(){
         String sqlComand = "SELECT count(cod_grupo) AS total_grupos FROM tb_grupo;";
 
         try{
@@ -80,32 +80,4 @@ public class Grupo {
         }
         return false;
     }
-    
-    public boolean VerificarTimeGrupo (){
-    
-        String sqlComand = "SELECT id_grupo, count(cod_time) AS total_no_grupo FROM tb_time WHERE id_grupo = ? group by id_grupo;";
-        
-        try{
-            Connection connect = new ConnectionFactory().obtemConexao();
-            PreparedStatement ps = connect.prepareCall(sqlComand);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            int qntTime = rs.getInt("total_no_grupo");
-            ps.close();
-            
-            if(qntTime == 4){
-                return false; 
-            }else{
-                return true;
-            }
-          
-            
-        }
-        catch(Exception e){
-         e.printStackTrace();
-        }
-        return false;
-        
-    }
-    
 }

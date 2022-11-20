@@ -239,10 +239,11 @@ public class AdministradorTela extends javax.swing.JFrame {
         // TODO add your handling code here:
         CadastrarGrupo cadastrarGrupo = new CadastrarGrupo();
         Grupo g = new Grupo();
-        if (g.VerificarGrupos()) {
+        if (g.verificarGrupos()) {
             cadastrarGrupo.setVisible(true);        
         } else {
-            JOptionPane.showMessageDialog(null, "Total máximo de grupos atingido!");
+            JOptionPane.showMessageDialog(null, "Total máximo de grupos atingido!",
+                    "Ação não Permitida", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -286,10 +287,8 @@ public class AdministradorTela extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdministradorTela().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AdministradorTela().setVisible(true);
         });
     }
 
