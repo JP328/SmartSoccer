@@ -4,24 +4,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConnectionFactory {
-    private String usuario ="root";
-    private String senha = "--";
-    private String host = "localhost";
-    private String porta = "3306";
-    private String bd = "projetoa3";
+    private String usuario ="zgogwwkb";
+    private String senha = "VcQUP5Zkf57C0IcCZYkTeNTeX0zF3FHT";
+    private String host = "amendoim.db.elephantsql.com";
+    private String porta = "5432";
+    private String db = "zgogwwkb";
 
-    public Connection obtemConexao(){
-        try{
-            Connection c = DriverManager.getConnection(
-                "jdbc:mysql://" + host + ":" + porta + "/" + bd + "?useTimezone=true&serverTimezone=UTC",
-                    usuario,
-                    senha
-            );
-            return c;        
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }    
-    }        
+    public static Connection obterConexao() throws Exception {
+    String url = String.format(
+            "jdbc:postgresql://%s:%s/%s";
+            host,
+            porta,
+            db
+    );
+    return DriverManager.getConnection(url, usuario, senha);
+    }
 }
+
+
