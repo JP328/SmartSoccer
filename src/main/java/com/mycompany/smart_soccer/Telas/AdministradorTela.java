@@ -1,6 +1,9 @@
 package com.mycompany.smart_soccer.Telas;
 
 import com.mycompany.smart_soccer.DAO.CadastroAutomatico;
+import com.mycompany.smart_soccer.DAO.Grupo;
+import com.mycompany.smart_soccer.DAO.Time;
+import javax.swing.JOptionPane;
 
 public class AdministradorTela extends javax.swing.JFrame {
 
@@ -220,7 +223,12 @@ public class AdministradorTela extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         CadastrarTime cadastrarTime = new CadastrarTime();
-        cadastrarTime.setVisible(true);
+        Time t = new Time();
+        if (t.verificarTime()) {
+            cadastrarTime.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null,"Total máximo de times atingido!");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -230,7 +238,12 @@ public class AdministradorTela extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         CadastrarGrupo cadastrarGrupo = new CadastrarGrupo();
-        cadastrarGrupo.setVisible(true);
+        Grupo g = new Grupo();
+        if (g.VerificarGrupos()) {
+            cadastrarGrupo.setVisible(true);        
+        } else {
+            JOptionPane.showMessageDialog(null, "Total máximo de grupos atingido!");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

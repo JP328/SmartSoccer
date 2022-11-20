@@ -87,7 +87,6 @@ public class Time {
             ps.close();
             
             if(quantidadeTime >= 32){
-                JOptionPane.showMessageDialog(null,"Total máximo de times atingido!");
                 return false;
             }else{
                 return  true;

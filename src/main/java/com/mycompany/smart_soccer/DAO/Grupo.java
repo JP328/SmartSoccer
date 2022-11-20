@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class Grupo {
 
@@ -12,7 +11,7 @@ public class Grupo {
         ArrayList<String> listaDeGrupos = new ArrayList<>();
     
         try (Connection c = new ConnectionFactory().obtemConexao()){
-            String sql = "SELECT * FROM tb_grupo;";
+            String sql = "SELECT * FROM tb_grupo ORDER BY g.nome_grupo;";
             //3: Pré compila o comando
             PreparedStatement ps = c.prepareStatement(sql);
             //4: Executa o comando e guarda
@@ -70,7 +69,6 @@ public class Grupo {
             ps.close();
             
             if(quantidade>=8){
-                JOptionPane.showMessageDialog(null, "Total máximo de grupos atingido!");
                 return false;
             }
             else{
