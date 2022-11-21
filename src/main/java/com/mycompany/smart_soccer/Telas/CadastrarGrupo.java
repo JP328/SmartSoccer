@@ -15,7 +15,7 @@ public class CadastrarGrupo extends javax.swing.JFrame {
     
     private void configurarTela() {
         Grupo g = new Grupo();
-        ArrayList<String> lista = g.listarGrupos();
+        ArrayList<String> lista = g.listarGrupos("exibir");
         String message = "Coloque o código de um dos times abaixo:\n";
         for (String time : lista) {
             message += time + "\n";
@@ -94,6 +94,7 @@ public class CadastrarGrupo extends javax.swing.JFrame {
 
         jTextField1.setBackground(new java.awt.Color(222, 222, 222));
         jTextField1.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);

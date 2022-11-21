@@ -16,7 +16,7 @@ public class CadastrarTime extends javax.swing.JFrame {
     
     private void configurarTela() {
         Grupo g = new Grupo();
-        ArrayList<String> lista = g.listarGrupos();
+        ArrayList<String> lista = g.listarGrupos("exibir");
         String message = "Coloque o código de um dos grupos abaixo:\n";
         for (String time : lista) {
             message += time + "\n";
@@ -204,7 +204,7 @@ public class CadastrarTime extends javax.swing.JFrame {
         if("".equals(nomeTime) || "".equals(codGrupo)) {
             JOptionPane.showMessageDialog(null, "Você precisa preencher os campos necessários primeiro");
         } else if (t.verificarTimeGrupo(codGrupo)){
-            t.cadastrarTime(nomeTime, "Fase de Grupo", codGrupo);
+            t.cadastrarTime(nomeTime, "Fase de Grupos", codGrupo);
 
             JOptionPane.showMessageDialog(null, """
                     Time cadastrado com Sucesso! 

@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class Grupo {
 
-    public ArrayList listarGrupos() {
-        ArrayList<String> listaDeGrupos = new ArrayList<>();
+    public ArrayList listarGrupos(String retorno) {
+        ArrayList<String> listaDeGruposExibicao = new ArrayList<>();
+        ArrayList<Integer> listaDeGrupos = new ArrayList<>();
     
         try (Connection c = new ConnectionFactory().obtemConexao()){
             String sql = "SELECT * FROM tb_grupo ORDER BY nome_grupo;";
@@ -18,19 +19,29 @@ public class Grupo {
             //o resultado em um ResultSet
             ResultSet rs = ps.executeQuery();
             //5: itera sobre o resultado
-            while (rs.next()){
-                int codigoGrupo = rs.getInt("cod_grupo");
-                String nome = rs.getString("nome_grupo");
-                String nomeFormatado = nome.substring(0,1).toUpperCase().concat(nome.substring(1));
-                String aux = String.format(
-                    "%s       Codigo do Grupo: %s",                
-                    nomeFormatado,
-                    codigoGrupo
-                );
-                listaDeGrupos.add(aux);
+            if (retorno.equals("exibir")) {
+                while (rs.next()){
+                    int codigoGrupo = rs.getInt("cod_grupo");
+                    String nome = rs.getString("nome_grupo");
+                    String nomeFormatado = nome.substring(0,1).toUpperCase().concat(nome.substring(1));
+                    String aux = String.format(
+                        "%s       Codigo do Grupo: %s",                
+                        nomeFormatado,
+                        codigoGrupo
+                    );
+                    listaDeGruposExibicao.add(aux);
+                }
+                ps.close();
+                return listaDeGruposExibicao;           
+            } else if (retorno.equals("listar")) {
+                while (rs.next()){
+                    int codigoGrupo = rs.getInt("cod_grupo");
+
+                    listaDeGrupos.add(codigoGrupo);
+                }
+                ps.close();
+                return listaDeGrupos;   
             }
-            ps.close();
-            return listaDeGrupos;           
         }
             catch (Exception e){
             e.printStackTrace();

@@ -9,7 +9,6 @@ public class Time {
 
     public ArrayList mostrarTimes(String retornoLista){
         ArrayList<String> listaDeTimesString = new ArrayList<>();
-        ArrayList<ArrayList> listaDeTimesArray = new ArrayList<>();
     
         try (Connection c = new ConnectionFactory().obtemConexao()){
             String sql = "SELECT t.cod_time, t.nome, g.nome_grupo FROM tb_time t, "
@@ -17,35 +16,20 @@ public class Time {
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
-            if ("String".equals(retornoLista)){
-                while (rs.next()){
-                    String nome = rs.getString("nome");
-                    String grupo = rs.getString("nome_grupo");
-                    String grupoFormatado = grupo.substring(0,1).toUpperCase().concat(grupo.substring(1));
-                    String aux = String.format(
-                        "%s       Time: %s",                
-                        grupoFormatado,
-                        nome
-                    );
-                    listaDeTimesString.add(aux);
-                }
-                return listaDeTimesString;
-            } else if ("Array".equals(retornoLista)) {
-                while (rs.next()){
-                    ArrayList<String> atributosTime = new ArrayList<>();
-                    int codigoTime = rs.getInt("cod_time");
-                    String nome = rs.getString("nome");
-                    String grupo = rs.getString("nome_grupo");
-                    
-                    atributosTime.add(Integer.toString(codigoTime));
-                    atributosTime.add(nome);
-                    atributosTime.add(grupo);
-                    listaDeTimesArray.add(atributosTime);
-                }
-                return listaDeTimesArray;            
+                     
+            while (rs.next()){
+                String nome = rs.getString("nome");
+                String grupo = rs.getString("nome_grupo");
+                String grupoFormatado = grupo.substring(0,1).toUpperCase().concat(grupo.substring(1));
+                String aux = String.format(
+                    "%s       Time: %s",                
+                    grupoFormatado,
+                    nome
+                );
+                listaDeTimesString.add(aux);
             }
             ps.close();
+            return listaDeTimesString;
         }
             catch (Exception e){
             e.printStackTrace();
@@ -98,7 +82,7 @@ public class Time {
         return false;
     }
     
-      public boolean verificarTimeGrupo (String codigo_grupo){
+    public boolean verificarTimeGrupo (String codigo_grupo){
     
         String sqlComand = "SELECT id_grupo, count(cod_time) AS total_no_grupo FROM "
                 + "tb_time WHERE id_grupo = ? group by id_grupo;";
@@ -114,10 +98,8 @@ public class Time {
                 ps.close();
 
                 if(qntTime >= 4){
-                    System.out.println("False");
                     return false; 
                 }else{
-                    System.out.println("True");
                     return true;
                 }
             } else {
@@ -131,4 +113,68 @@ public class Time {
         
     }
    
+    public ArrayList retornarTimesGrupo (String codigo_grupo) {
+        ArrayList<ArrayList> timesDoGrupo = new ArrayList<>();
+        
+            try (Connection c = new ConnectionFactory().obtemConexao()){
+            String sqlComand = "SELECT cod_time, nome FROM tb_time WHERE id_grupo = ?;";
+            PreparedStatement ps = c.prepareStatement(sqlComand);
+            ps.setString(1, codigo_grupo);
+            ResultSet rs = ps.executeQuery();
+            
+            
+            while (rs.next()){
+                int codigo = rs.getInt("cod_time");
+                String nome = rs.getString("nome");
+                ArrayList<String> atributosTime = new ArrayList<>();
+                atributosTime.add(String.valueOf(codigo));
+                atributosTime.add(nome);
+                timesDoGrupo.add(atributosTime);
+            }
+            c.close();
+            ps.close();
+            return timesDoGrupo;            
+        }
+            catch (Exception e){
+            e.printStackTrace();
+        } 
+        
+        return null;
+    }
+    
+    public String tipoClassificacao(String classificacao){
+        if(classificacao.equals("Oitavas de Final")) {
+            return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
+        }
+        if (classificacao.equals("Quartas de Final")){
+            return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
+        }
+        if (classificacao.equals("Semi-Final")) {
+            return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
+        }
+        if (classificacao.equals("Final")) {
+            return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
+        }
+        if (classificacao.equals("Vencedor da Copa Do Mundo 2022")) {
+            return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
+        }
+        return "UPDATE tb_time SET classificacao='Fase de Grupos' WHERE cod_time = ?;";
+    }
+    
+    public void atualizarClassificacao(String codigoTime, String classificacao){
+        String sqlComand = tipoClassificacao(classificacao);
+        
+          try{
+            Connection connect = new ConnectionFactory().obtemConexao();
+            PreparedStatement ps = connect.prepareStatement(sqlComand);
+
+            ps.setString(1, codigoTime);
+
+            ps.execute();
+            ps.close();
+            connect.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
