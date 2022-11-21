@@ -113,26 +113,47 @@ public class Time {
         
     }
    
-    public ArrayList retornarTimesGrupo (String codigo_grupo) {
+    public ArrayList retornarTimesGrupo (String codigo_grupo, String classificacao) {
         ArrayList<ArrayList> timesDoGrupo = new ArrayList<>();
         
-            try (Connection c = new ConnectionFactory().obtemConexao()){
-            String sqlComand = "SELECT cod_time, nome FROM tb_time WHERE id_grupo = ?;";
-            PreparedStatement ps = c.prepareStatement(sqlComand);
-            ps.setString(1, codigo_grupo);
-            ResultSet rs = ps.executeQuery();
+        try (Connection c = new ConnectionFactory().obtemConexao()){
+            String sqlComandDefault = "SELECT cod_time, nome FROM tb_time WHERE id_grupo = ?;";
+            String sqlComand = tipoClassificacaoSelect(classificacao);
             
-            
-            while (rs.next()){
-                int codigo = rs.getInt("cod_time");
-                String nome = rs.getString("nome");
-                ArrayList<String> atributosTime = new ArrayList<>();
-                atributosTime.add(String.valueOf(codigo));
-                atributosTime.add(nome);
-                timesDoGrupo.add(atributosTime);
+            if (tipoClassificacaoSelect(classificacao).equals(sqlComandDefault)){
+                PreparedStatement ps = c.prepareStatement(sqlComandDefault);
+                ps.setString(1, codigo_grupo);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()){
+                    int codigo = rs.getInt("cod_time");
+                    String nome = rs.getString("nome");
+
+                    ArrayList<String> atributosTime = new ArrayList<>();
+
+                    atributosTime.add(String.valueOf(codigo));
+                    atributosTime.add(nome);
+                    timesDoGrupo.add(atributosTime);
+                }
+                c.close();
+                ps.close();
+            } else {
+                PreparedStatement ps = c.prepareStatement(sqlComand);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()){
+                    int codigo = rs.getInt("cod_time");
+                    String nome = rs.getString("nome");
+
+                    ArrayList<String> atributosTime = new ArrayList<>();
+
+                    atributosTime.add(String.valueOf(codigo));
+                    atributosTime.add(nome);
+                    timesDoGrupo.add(atributosTime);
+                }
+                c.close();
+                ps.close();
             }
-            c.close();
-            ps.close();
             return timesDoGrupo;            
         }
             catch (Exception e){
@@ -142,27 +163,23 @@ public class Time {
         return null;
     }
     
-    public String tipoClassificacao(String classificacao){
-        if(classificacao.equals("Oitavas de Final")) {
-            return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
+    private String tipoClassificacaoSelect (String classificacao) {
+        if (!"Fase de Grupos".equals(classificacao)){
+            return "SELECT t.cod_time, t.nome FROM tb_time t, tb_grupo g WHERE t.id_grupo = "
+                    + "g.cod_grupo AND t.classificacao = '" + classificacao + "' ORDER BY g.nome_grupo;";
         }
-        if (classificacao.equals("Quartas de Final")){
-            return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
-        }
-        if (classificacao.equals("Semi-Final")) {
-            return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
-        }
-        if (classificacao.equals("Final")) {
-            return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
-        }
-        if (classificacao.equals("Vencedor da Copa Do Mundo 2022")) {
+        return "SELECT cod_time, nome FROM tb_time WHERE id_grupo = ?;";
+    }
+    
+    private String tipoClassificacaoUpdate(String classificacao){
+        if(!"Fase de Grupos".equals(classificacao)) {
             return "UPDATE tb_time SET classificacao='" + classificacao +"' WHERE cod_time = ?;";
         }
         return "UPDATE tb_time SET classificacao='Fase de Grupos' WHERE cod_time = ?;";
     }
     
     public void atualizarClassificacao(String codigoTime, String classificacao){
-        String sqlComand = tipoClassificacao(classificacao);
+        String sqlComand = tipoClassificacaoUpdate(classificacao);
         
           try{
             Connection connect = new ConnectionFactory().obtemConexao();
