@@ -194,4 +194,17 @@ public class Time {
             e.printStackTrace();
         }
     }
+    
+    public void limparTimes (){
+        String sqlComand = "TRUNCATE `projetoa3`.`tb_time`;";
+
+        try (Connection connect = new ConnectionFactory().obtemConexao()) {
+            PreparedStatement ps = connect.prepareStatement(sqlComand);
+            ps.execute();        
+            ps.close();
+            
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

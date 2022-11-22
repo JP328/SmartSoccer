@@ -241,6 +241,7 @@ public class AdministradorTela extends javax.swing.JFrame {
         // TODO add your handling code here
         Copa c = new Copa();
         c.SimularCopa();
+        JOptionPane.showMessageDialog(null, "Função incopleta...\n Por favor avalie mais tarde.");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -266,6 +267,11 @@ public class AdministradorTela extends javax.swing.JFrame {
         // Importar cadastro automático
         //Chamar grupo e chamar time
         CadastroAutomatico automatico = new CadastroAutomatico();
+        Time t = new Time();
+        Grupo g = new Grupo();
+        t.limparTimes();
+        g.limparGrupos();
+        automatico.cadastroGrupoAutomatico();
         automatico.cadastroTimeAutomatico();
     }//GEN-LAST:event_jButton5ActionPerformed
 

@@ -12,7 +12,7 @@ public class Copa {
 
   public void SimularCopa() {
     faseDeGrupos();
-    // oitavasDeFinal();
+    oitavasDeFinal();
   }
 
   private void faseDeGrupos() {
@@ -24,18 +24,18 @@ public class Copa {
       String grupo = String.valueOf(g.listarGrupos("listar").get(i));
 
       ArrayList<String> resultados = new ArrayList<>();
-      ArrayList<ArrayList> timesDoGrupo = t.retornarTimesGrupo(grupo);
+      ArrayList<ArrayList> timesDoGrupo = t.retornarTimesGrupo(grupo, "Fase de Grupos");
 
-      resultados.add(jogo.simularJogo(timesDoGrupo.get(0).get(1), timesDoGrupo.get(1).get(1)));
-      resultados.add(jogo.simularJogo(timesDoGrupo.get(0).get(1), timesDoGrupo.get(2).get(1)));
-      resultados.add(jogo.simularJogo(timesDoGrupo.get(0).get(1), timesDoGrupo.get(3).get(1)));
-      resultados.add(jogo.simularJogo(timesDoGrupo.get(1).get(1), timesDoGrupo.get(2).get(1)));
-      resultados.add(jogo.simularJogo(timesDoGrupo.get(1).get(1), timesDoGrupo.get(3).get(1)));
-      resultados.add(jogo.simularJogo(timesDoGrupo.get(2).get(1), timesDoGrupo.get(3).get(1)));
+      resultados.add(jogo.simularJogo(timesDoGrupo.get(0), timesDoGrupo.get(1)));
+      resultados.add(jogo.simularJogo(timesDoGrupo.get(0), timesDoGrupo.get(2)));
+      resultados.add(jogo.simularJogo(timesDoGrupo.get(0), timesDoGrupo.get(3)));
+      resultados.add(jogo.simularJogo(timesDoGrupo.get(1), timesDoGrupo.get(2)));
+      resultados.add(jogo.simularJogo(timesDoGrupo.get(1), timesDoGrupo.get(3)));
+      resultados.add(jogo.simularJogo(timesDoGrupo.get(2), timesDoGrupo.get(3)));
 
       ArrayList<String> classificados = new ArrayList<>();
       for (int j = 0; j <= 3; j++) {
-        String timeReferencia = String.valueOf(timesDoGrupo.get(j).get(1));
+        String timeReferencia = String.valueOf(timesDoGrupo.get(j).get(0));
         int contador = 0;
 
         for (String time : resultados) {
@@ -48,7 +48,6 @@ public class Copa {
           classificados.add(codTimeReferencia);
         }
       }
-      JOptionPane.showMessageDialog(null, classificados);
 
       if (classificados.toArray().length == 2) {
         t.atualizarClassificacao(classificados.get(0), "Oitavas de Final");
@@ -59,23 +58,23 @@ public class Copa {
     }
   }
 
-  private void OitavasDeFinal() {
+  private void oitavasDeFinal() {
     Jogo jogo = new Jogo();
     Time t = new Time();
 
-    ArrayList<ArrayList> timesOitavas = t.retornarTimesGrupo(0, "Oitavas de Final");
+    ArrayList<ArrayList> timesOitavas = t.retornarTimesGrupo("0", "Oitavas de Final");
 
-    for (int i = 0; i <= 17; i ++) {
+    for (int i = 0; i <= 15; i ++) {
       
-        String resultado = "";
+        
         int adversario = i+2;
 
-        resultado = jogo.simularJogo(timesOitavas.get(i), timesOitavas.get(adversario));
+        String resultado = jogo.simularJogo(timesOitavas.get(i), timesOitavas.get(adversario));
 
         t.atualizarClassificacao(resultado, "Quartas de Final");
 
       if(adversario%2 != 0){
-        i += 3;
+        i += 2;
       }
     }
   }

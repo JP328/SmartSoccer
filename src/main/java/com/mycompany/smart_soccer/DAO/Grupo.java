@@ -91,4 +91,17 @@ public class Grupo {
         }
         return false;
     }
+    
+    public void limparGrupos (){
+        String sqlComand = "TRUNCATE `projetoa3`.`tb_grupo`;";
+
+        try (Connection connect = new ConnectionFactory().obtemConexao()) {
+            PreparedStatement ps = connect.prepareStatement(sqlComand);
+            ps.execute();        
+            ps.close();
+            
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

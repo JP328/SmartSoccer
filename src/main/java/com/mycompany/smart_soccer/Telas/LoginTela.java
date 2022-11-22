@@ -4,6 +4,9 @@
  */
 package com.mycompany.smart_soccer.Telas;
 
+import com.mycompany.smart_soccer.DAO.ValidarAdministrador;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lucas
@@ -163,10 +166,25 @@ public class LoginTela extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        AdministradorTela adm = new AdministradorTela();
-        adm.setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+        ValidarAdministrador validarAdm = new ValidarAdministrador();
+
+        String usuario = jTextField1.getText();
+        String senha = String.valueOf(jPasswordField2.getPassword());
+        
+        if ("".equals(usuario) || "".equals(senha)){
+            JOptionPane.showMessageDialog(null, "Por favor, preenhca todos os campos para prosseguir!",
+                    "Preencha os campos necessários!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (validarAdm.validar(usuario, senha)) {
+                AdministradorTela adm = new AdministradorTela();
+                adm.setVisible(true);
+                this.setVisible(false);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto! Tente novamente",
+                        "Dados Incorretos!", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -195,10 +213,7 @@ public class LoginTela extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

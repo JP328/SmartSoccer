@@ -1,10 +1,11 @@
 package com.mycompany.smart_soccer;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Jogo {
    
-  public String simularJogo(Object time1, Object time2) {
+  public String simularJogo(ArrayList<String> time1, ArrayList<String> time2) {
 
     Random rd = new Random();
 
@@ -23,11 +24,11 @@ public class Jogo {
     System.out.println("O resultado da partida foi: " + golTime1 + ":" + golTime2);
 
     if (golTime1 > golTime2) {
-      System.out.println(time1 + " venceu");
-      return String.valueOf(time1);
+      System.out.println(time1.get(1) + " venceu");
+      return String.valueOf(time1.get(0));
     } else {
-      System.out.println(time2 + " venceu");
-      return String.valueOf(time2);
+      System.out.println(time2.get(1) + " venceu");
+      return String.valueOf(time2.get(0));
     }
   }
 
