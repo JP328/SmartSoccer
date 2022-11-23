@@ -2,17 +2,16 @@ package com.mycompany.smart_soccer;
 
 import com.mycompany.smart_soccer.DAO.Grupo;
 import com.mycompany.smart_soccer.DAO.Time;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.swing.JOptionPane;
 
 public class Copa {
 
   public void SimularCopa() {
     faseDeGrupos();
     oitavasDeFinal();
+    quartasDeFinal();
+    finalDaCopa();
+    
   }
 
   private void faseDeGrupos() {
@@ -78,35 +77,41 @@ public class Copa {
       }
     }
   }
+  
+    private void quartasDeFinal() {
+    Jogo jogo = new Jogo();
+    Time t = new Time();
 
-  //
-  // public ArrayList<String>
-  // QuartasDeFinal("VencedoresOitavas1","VencedoresOitavas2") {
-  //
-  // Jogo jogo = new Jogo();
-  // ArrayList<String> VencedoresQuartasDeFinal = new ArrayList<>();
-  //
-  // VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresOitavas1.get(0),
-  // VencedoresOitavas2.get(1)));
-  // VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresOitavas1.get(1),
-  // VencedoresOitavas2.get(0)));
-  //
-  // return VencedoresQuartasDeFinal;
-  // }
-  //
-  // public ArrayList<String> SemiFinal("VencedoresQuartas1","VencedoresQuartas2")
-  // {
-  // Jogo jogo = new Jogo();
-  // ArrayList<String> VencedoresSemiFinal = new ArrayList<>();
-  //
-  // VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresQuartas1.get(0),
-  // VencedoresQuartas2.get(1)));
-  // VencedoresQuartasDeFinal.add(jogo.simularJogo(VencedoresQuartas1.get(1),
-  // VencedoresQuartas2.get(0)));
-  //
-  // return VencedoresSemiFinal;
-  // }
+    ArrayList<ArrayList> timesOitavas = t.retornarTimesGrupo("0", "Quartas de Final");
 
-  // Na fase de grupos, cada seleção joga três vezes, e a melhor passa de fase
-  //
+    for (int i = 0; i <= 7; i ++) {
+      
+        
+        int adversario = i+2;
+
+        String resultado = jogo.simularJogo(timesOitavas.get(i), timesOitavas.get(adversario));
+
+        t.atualizarClassificacao(resultado, "Semi-Final");
+
+      if(adversario%2 != 0){
+        i += 2;
+      }
+    }
+  }
+
+    private void finalDaCopa() {
+        Jogo jogo = new Jogo();
+        Time t = new Time();
+
+        ArrayList<ArrayList> timesQuartas = t.retornarTimesGrupo("0", "Semi-Final");
+
+        for (int i = 0; i <= 3; i += 2) {
+            String resultado = jogo.simularJogo(timesQuartas.get(i), timesQuartas.get(i+1));
+            t.atualizarClassificacao(resultado, "Final");
+        }
+        
+        ArrayList<ArrayList> timesSemiFinal = t.retornarTimesGrupo("0", "Final");       
+        String resultado = jogo.simularJogo(timesSemiFinal.get(0), timesSemiFinal.get(1));
+        t.atualizarClassificacao(resultado, "Vencedor Da Copa do Mundo");
+    }
 }

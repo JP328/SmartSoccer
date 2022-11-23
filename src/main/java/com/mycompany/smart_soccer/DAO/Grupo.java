@@ -79,7 +79,7 @@ public class Grupo {
             int quantidade = rs.getInt("total_grupos");
             ps.close();
             
-            if(quantidade>=8){
+            if(quantidade >= 8){
                 return false;
             }
             else{
