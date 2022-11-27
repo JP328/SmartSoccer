@@ -6,15 +6,14 @@ import java.util.ArrayList;
 
 public class Copa {
 
-  public void SimularCopa() {
+  public String SimularCopa() {
     faseDeGrupos();
     oitavasDeFinal();
     quartasDeFinal();
-    finalDaCopa();
-    
+    return finalDaCopa();
   }
 
-  private void faseDeGrupos() {
+  public void faseDeGrupos() {
     Jogo jogo = new Jogo();
     Time t = new Time();
     Grupo g = new Grupo();
@@ -78,7 +77,7 @@ public class Copa {
     }
   }
   
-    private void quartasDeFinal() {
+  private void quartasDeFinal() {
     Jogo jogo = new Jogo();
     Time t = new Time();
 
@@ -99,19 +98,22 @@ public class Copa {
     }
   }
 
-    private void finalDaCopa() {
-        Jogo jogo = new Jogo();
-        Time t = new Time();
+  private String finalDaCopa() {
+    Jogo jogo = new Jogo();
+    Time t = new Time();
 
-        ArrayList<ArrayList> timesQuartas = t.retornarTimesGrupo("0", "Semi-Final");
+    ArrayList<ArrayList> timesQuartas = t.retornarTimesGrupo("0", "Semi-Final");
 
-        for (int i = 0; i <= 3; i += 2) {
-            String resultado = jogo.simularJogo(timesQuartas.get(i), timesQuartas.get(i+1));
-            t.atualizarClassificacao(resultado, "Final");
-        }
-        
-        ArrayList<ArrayList> timesSemiFinal = t.retornarTimesGrupo("0", "Final");       
-        String resultado = jogo.simularJogo(timesSemiFinal.get(0), timesSemiFinal.get(1));
-        t.atualizarClassificacao(resultado, "Vencedor Da Copa do Mundo");
+    for (int i = 0; i <= 3; i += 2) {
+        String resultado = jogo.simularJogo(timesQuartas.get(i), timesQuartas.get(i+1));
+        t.atualizarClassificacao(resultado, "Final");
     }
+
+    ArrayList<ArrayList> timesSemiFinal = t.retornarTimesGrupo("0", "Final");       
+    String resultado = jogo.simularJogo(timesSemiFinal.get(0), timesSemiFinal.get(1));
+    t.atualizarClassificacao(resultado, "Vencedor Da Copa do Mundo");
+
+    ArrayList<ArrayList> vencedorCopa = t.retornarTimesGrupo("0", "Vencedor Da Copa do Mundo");
+    return vencedorCopa.get(0).get(1).toString(); 
+  }
 }

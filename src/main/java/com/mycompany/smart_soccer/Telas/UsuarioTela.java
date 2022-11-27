@@ -177,7 +177,7 @@ public class UsuarioTela extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         Time t = new Time();
-        ArrayList<String> lista = t.mostrarTimes("String");
+        ArrayList<String> lista = t.mostrarTimes();
         String message = "Lista de Times:\n";
         for (String time : lista) {
             message += time + "\n";

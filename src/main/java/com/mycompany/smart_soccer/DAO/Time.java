@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class Time {
 
-    public ArrayList mostrarTimes(String retornoLista){
+    public ArrayList mostrarTimes(){
         ArrayList<String> listaDeTimesString = new ArrayList<>();
     
         try (Connection c = new ConnectionFactory().obtemConexao()){
-            String sql = "SELECT t.cod_time, t.nome, g.nome_grupo FROM tb_time t, "
+            String sql = "SELECT t.nome, t.classificacao FROM tb_time t, "
                     + "tb_grupo g WHERE t.id_grupo = g.cod_grupo;";
 
             PreparedStatement ps = c.prepareStatement(sql);
@@ -19,12 +19,11 @@ public class Time {
                      
             while (rs.next()){
                 String nome = rs.getString("nome");
-                String grupo = rs.getString("nome_grupo");
-                String grupoFormatado = grupo.substring(0,1).toUpperCase().concat(grupo.substring(1));
+                String classificacao = rs.getString("classificacao");
                 String aux = String.format(
-                    "%s       Time: %s",                
-                    grupoFormatado,
-                    nome
+                    "Time: %s     Classificacão: %s",                
+                    nome,
+                    classificacao
                 );
                 listaDeTimesString.add(aux);
             }
@@ -72,17 +71,16 @@ public class Time {
                 return false;
             }else{
                 return  true;
-            }
-            
+            }      
 
         }catch(Exception e){
            e.printStackTrace();
         }
-    
+        
         return false;
     }
     
-    public boolean verificarTimeGrupo (String codigo_grupo){
+    public boolean verificarTimeGrupo(String codigo_grupo){
     
         String sqlComand = "SELECT id_grupo, count(cod_time) AS total_no_grupo FROM "
                 + "tb_time WHERE id_grupo = ? group by id_grupo;";
@@ -113,7 +111,7 @@ public class Time {
         
     }
    
-    public ArrayList retornarTimesGrupo (String codigo_grupo, String classificacao) {
+    public ArrayList retornarTimesGrupo(String codigo_grupo, String classificacao) {
         ArrayList<ArrayList> timesDoGrupo = new ArrayList<>();
         
         try (Connection c = new ConnectionFactory().obtemConexao()){
@@ -163,7 +161,7 @@ public class Time {
         return null;
     }
     
-    private String tipoClassificacaoSelect (String classificacao) {
+    private String tipoClassificacaoSelect(String classificacao) {
         if (!"Fase de Grupos".equals(classificacao)){
             return "SELECT t.cod_time, t.nome FROM tb_time t, tb_grupo g WHERE t.id_grupo = "
                     + "g.cod_grupo AND t.classificacao = '" + classificacao + "' ORDER BY g.nome_grupo;";
@@ -195,7 +193,7 @@ public class Time {
         }
     }
     
-    public void limparTimes (){
+    public void limparTimes() {
         String sqlComand = "TRUNCATE `projetoa3`.`tb_time`;";
 
         try (Connection connect = new ConnectionFactory().obtemConexao()) {

@@ -73,7 +73,7 @@ public class AdministradorTela extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(43, 168, 253));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cadastrar");
+        jButton1.setText("Começar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -275,11 +275,11 @@ public class AdministradorTela extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here
         Time t = new Time();
+        resultadosCopa telaResultados = new resultadosCopa();
         if (!t.verificarTime()) {
             Copa c = new Copa();
-            c.SimularCopa();
-            JOptionPane.showMessageDialog(null, "Funcionalidade incompleta, por favor avalie mais "
-                    + "tarde :)","Em contrução...", JOptionPane.ERROR_MESSAGE);        
+            telaResultados.configurarTela(c.SimularCopa());
+            telaResultados.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Cadastre todos os 32 Times antes de Simular a Copa!",
                     "Ação não Permitida", JOptionPane.ERROR_MESSAGE);
@@ -316,6 +316,8 @@ public class AdministradorTela extends javax.swing.JFrame {
         
         automatico.cadastroGrupoAutomatico();
         automatico.cadastroTimeAutomatico();
+        JOptionPane.showMessageDialog(null, "Cadastro dos 8 grupos e 32 times realizado "
+                + "com sucesso", "Cadastro automático concluído", JOptionPane.DEFAULT_OPTION);                
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
